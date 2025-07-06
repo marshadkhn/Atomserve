@@ -55,9 +55,9 @@ export default function Navbar() {
       {isOpen && (
         <div className="md:hidden mt-4 space-y-4 px-4 z-40">
           <div className="flex items-center space-x-3">
-            <div className="w-16 h-14 flex items-center justify-center rounded-[2rem] bg-white/10 border border-white/20 backdrop-blur-lg">
+            {/* <div className="md:hidden w-16 h-14 flex items-center justify-center rounded-[2rem] bg-white/10 border border-white/20 backdrop-blur-lg">
               <HiOutlineMenu className="text-white text-xl" />
-            </div>
+            </div> */}
             <div className="px-8 py-4 rounded-full bg-white/10 border border-white/20 backdrop-blur-lg text-white text-sm font-medium">
               EN / FR
             </div>

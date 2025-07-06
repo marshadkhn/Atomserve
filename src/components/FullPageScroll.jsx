@@ -1,30 +1,54 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 
 import Home from "../sections/Home";
-import TestSection from "../sections/TestSection"; // Import your sections here
+import TestSection from "../sections/TestSection";
+
 const sections = [<Home />, <TestSection />];
 
 export default function FullPageScroll() {
   const [index, setIndex] = useState(0);
   const [scrolling, setScrolling] = useState(false);
+  const touchStartY = useRef(null);
 
-  const handleScroll = (e) => {
+  const handleScroll = (deltaY) => {
     if (scrolling) return;
     setScrolling(true);
     setTimeout(() => setScrolling(false), 400);
 
-    if (e.deltaY > 0 && index < sections.length - 1) {
+    if (deltaY > 0 && index < sections.length - 1) {
       setIndex((prev) => prev + 1);
-    } else if (e.deltaY < 0 && index > 0) {
+    } else if (deltaY < 0 && index > 0) {
       setIndex((prev) => prev - 1);
     }
   };
 
+  const onWheel = (e) => {
+    handleScroll(e.deltaY);
+  };
+
+  const onTouchStart = (e) => {
+    touchStartY.current = e.touches[0].clientY;
+  };
+
+  const onTouchEnd = (e) => {
+    if (touchStartY.current === null) return;
+    const deltaY = touchStartY.current - e.changedTouches[0].clientY;
+    handleScroll(deltaY);
+    touchStartY.current = null;
+  };
+
   useEffect(() => {
-    window.addEventListener("wheel", handleScroll);
-    return () => window.removeEventListener("wheel", handleScroll);
+    window.addEventListener("wheel", onWheel);
+    window.addEventListener("touchstart", onTouchStart);
+    window.addEventListener("touchend", onTouchEnd);
+
+    return () => {
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchend", onTouchEnd);
+    };
   }, [index, scrolling]);
 
   return (
