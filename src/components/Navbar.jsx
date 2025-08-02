@@ -10,13 +10,13 @@ export default function Navbar({ theme = "light" }) {
   const textColor = theme === "light" ? "text-white" : "text-gray-900";
   const bgColor = theme === "light" ? "bg-white/10" : "bg-black/5";
   const borderColor = theme === "light" ? "border-white/20" : "border-black/20";
-  const logoSrc = theme === "light" ? "/Logo.svg" : "/Logo-dark.svg"; // Assumes you create a dark version of the logo
+  const logoSrc = theme === "light" ? "/Images/Logo.svg" : "/Images/Logo-dark.svg";
 
   // Combine static and dynamic classes
   const navElementClasses = `${bgColor} ${borderColor} ${textColor} backdrop-blur-lg`;
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 px-6 py-4 transition-colors duration-300">
+    <nav className="fixed top-0 left-0 w-full z-50 px-6 py-4 transition-colors duration-300 border-black border-2">
       <div className="max-w-screen-xl mx-auto flex items-center justify-between relative">
         {/* Mobile Layout */}
         <div className="flex md:hidden items-center justify-between w-full z-50">

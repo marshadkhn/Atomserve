@@ -4,12 +4,14 @@ import { motion } from "framer-motion";
 
 import Home from "../sections/Home";
 import TestSection from "../sections/TestSection";
+import SecondSection from "../sections/SecondSection"; 
 import Navbar from "./Navbar"; // Import the Navbar here
 
 // Define your sections and their corresponding navbar themes
 const sections = [
   { component: <Home />, theme: "light" }, // Light text/icons for the dark Home section
-  { component: <TestSection />, theme: "dark" }, // Dark text/icons for the light TestSection
+  { component: <SecondSection />, theme: "dark" },
+  { component: <TestSection />, theme: "dark" } // Dark text/icons for the light TestSection
 ];
 
 export default function FullPageScroll() {
