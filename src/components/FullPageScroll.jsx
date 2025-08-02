@@ -4,8 +4,13 @@ import { motion } from "framer-motion";
 
 import Home from "../sections/Home";
 import TestSection from "../sections/TestSection";
+import Navbar from "./Navbar"; // Import the Navbar here
 
-const sections = [<Home />, <TestSection />];
+// Define your sections and their corresponding navbar themes
+const sections = [
+  { component: <Home />, theme: "light" }, // Light text/icons for the dark Home section
+  { component: <TestSection />, theme: "dark" }, // Dark text/icons for the light TestSection
+];
 
 export default function FullPageScroll() {
   const [index, setIndex] = useState(0);
@@ -15,7 +20,8 @@ export default function FullPageScroll() {
   const handleScroll = (deltaY) => {
     if (scrolling) return;
     setScrolling(true);
-    setTimeout(() => setScrolling(false), 400);
+    // Increased timeout to better match the animation duration
+    setTimeout(() => setScrolling(false), 800);
 
     if (deltaY > 0 && index < sections.length - 1) {
       setIndex((prev) => prev + 1);
@@ -51,16 +57,22 @@ export default function FullPageScroll() {
     };
   }, [index, scrolling]);
 
+  // Determine the current theme based on the active index
+  const currentTheme = sections[index].theme;
+
   return (
     <div className="overflow-hidden h-screen w-full relative">
+      {/* Render the Navbar here and pass the current theme */}
+      <Navbar theme={currentTheme} />
+
       <motion.div
         className="h-full w-full"
         animate={{ y: `-${index * 100}vh` }}
         transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
       >
-        {sections.map((Section, i) => (
+        {sections.map((section, i) => (
           <div key={i} className="h-screen w-full">
-            {Section}
+            {section.component}
           </div>
         ))}
       </motion.div>
